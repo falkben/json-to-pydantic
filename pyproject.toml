@@ -17,6 +17,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+  "datamodel-code-generator",
+  "pyodide-build",
+  "micropip",
+  "pyscript"
 ]
 
 [project.optional-dependencies]
