@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <!-- pyscript -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+
+    <!--Prism-->
+    <link
+      id="import-theme"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <!-- code-input -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/WebCoder49/code-input@1.1/code-input.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/WebCoder49/code-input@1.1/code-input.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/WebCoder49/code-input@1.1/plugins/indent.js"></script>
+  </head>
+  <body>
+    <!-- prettier-ignore -->
+    <py-config>
+      packages = [
+        "pyyaml",
+        "Jinja2",
+        "pydantic",
+        "https://files.pythonhosted.org/packages/0c/51/1f7f93c0555eaf4cbb628e26ba026e3256174a45bd9397ff1ea7cf96bad5/black-22.12.0-py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/35/f0/f3f36d0a87d4f2e3ceb9ba273cac9ad6fb0924f078e51c94803f10b55dbf/PySnooper-1.1.1-py2.py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/91/3b/a63bafb8141b67c397841b36ad46e7469716af2b2d00cb0be2dfb9667130/isort-5.11.4-py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/67/e2/bcd7099b31d6a1f7be358f7ef7cf6fc97cc5a66353784fdfa4867e4243fb/inflect-6.0.2-py3-none-any.whl",
+      ]
+    </py-config>
+
+    <!-- prettier-ignore -->
+    <py-script src="./main.py">
+    </py-script>
+
+    <!-- prettier-ignore -->
+    <py-script>
+      import micropip
+
+      async def load_deps():
+          # install without deps using micropip to avoid bloat
+          await micropip.install(
+              "https://files.pythonhosted.org/packages/af/e9/10c8eb73138bcb6b124e2fc2df7ec8b163f8710d947d9e685b22db215010/datamodel_code_generator-0.16.1-py3-none-any.whl",
+              deps=False,
+          )
+      load_deps()
+    </py-script>
+
+    <main class="container">
+      <h1 class="text-center">JSON to Pydantic</h1>
+
+      <p>
+        Enter JSON to convert to a
+        <a href="https://docs.pydantic.dev/">pydantic</a> model!
+      </p>
+
+      <div class="row">
+        <div class="col">
+          <h2 class="text-center">
+            <label for="json-ta">JSON</label>
+          </h2>
+          <code-input
+            id="json-ta"
+            lang="JSON"
+            style="overflow: hidden"
+            placeholder="Enter JSON"
+            value='{
+  "a": "b",
+  "c": 123
+}'
+          ></code-input>
+        </div>
+
+        <div class="col">
+          <h2 class="text-center">
+            <label for="pydantic-ta">Pydantic</label>
+          </h2>
+          <code-input
+            id="pydantic-ta"
+            lang="Python"
+            style="overflow: hidden"
+            placeholder="Model output"
+            value=""
+          ></code-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <button
+          id="push_button"
+          class="py-button"
+          type="submit"
+          py-click="convert()"
+        >
+          Convert
+        </button>
+      </div>
+
+      <h3>About this tool</h3>
+      <p>
+        Created by <a href="https://github.com/falkben/">Ben Falk</a> using
+        <a href="https://pyscript.net/">pyscript</a> and the Python library
+        <a href="https://github.com/koxudaxi/datamodel-code-generator"
+          >datamodel-code-generator</a
+        >, JSON is converted locally and never leaves your browser. Open source
+        at
+        <a href="https://github.com/falkben/json-to-pydantic/"
+          >github.com/falkben/json-to-pydantic/</a
+        >
+      </p>
+    </main>
+
+    <script>
+      codeInput.registerTemplate(
+        "code-input",
+        codeInput.templates.prism(Prism, [new codeInput.plugins.Indent()])
+      );
+    </script>
+  </body>
+</html>
