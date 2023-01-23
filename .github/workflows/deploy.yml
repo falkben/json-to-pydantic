@@ -8,9 +8,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-    - name: Push to gh-pages
-      run: |
-        git subtree push --prefix json_to_pydatic/static origin gh-pages
+      - name: Push to gh-pages
+        run: |
+          git subtree push --prefix json_to_pydantic/static origin gh-pages
