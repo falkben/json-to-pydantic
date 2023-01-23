@@ -46,6 +46,7 @@
         "https://files.pythonhosted.org/packages/91/3b/a63bafb8141b67c397841b36ad46e7469716af2b2d00cb0be2dfb9667130/isort-5.11.4-py3-none-any.whl",
         "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl",
         "https://files.pythonhosted.org/packages/67/e2/bcd7099b31d6a1f7be358f7ef7cf6fc97cc5a66353784fdfa4867e4243fb/inflect-6.0.2-py3-none-any.whl",
+        "wheels/genson-1.2.2-py2.py3-none-any.whl"
       ]
     </py-config>
 
@@ -69,12 +70,12 @@
     <main class="container">
       <h1 class="text-center">JSON to Pydantic</h1>
 
-      <p>
+      <p class="text-center">
         Enter JSON to convert to a
         <a href="https://docs.pydantic.dev/">pydantic</a> model!
       </p>
 
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col">
           <h2 class="text-center">
             <label for="json-ta">JSON</label>
@@ -105,29 +106,61 @@
         </div>
       </div>
 
-      <div class="row">
-        <button
-          id="push_button"
-          class="py-button"
-          type="submit"
-          py-click="convert()"
-        >
-          Convert
-        </button>
+      <div class="d-flex justify-content-center">
+        <div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="all_optional_checkbox"
+            />
+            <label class="form-check-label" for="all_optional_checkbox">
+              Specify every field as Optional
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="snake_case_field_checkbox"
+            />
+            <label class="form-check-label" for="snake_case_field_checkbox">
+              Alias camelCase fields as snake_case
+            </label>
+          </div>
+        </div>
       </div>
 
-      <h3>About this tool</h3>
-      <p>
-        Created by <a href="https://github.com/falkben/">Ben Falk</a> using
-        <a href="https://pyscript.net/">pyscript</a> and the Python library
-        <a href="https://github.com/koxudaxi/datamodel-code-generator"
-          >datamodel-code-generator</a
-        >, JSON is converted locally and never leaves your browser. Open source
-        at
-        <a href="https://github.com/falkben/json-to-pydantic/"
-          >github.com/falkben/json-to-pydantic/</a
-        >
-      </p>
+      <div class="row pt-2 align-middle text-center">
+        <div>
+          <button
+            id="convert_button"
+            class="py-button"
+            type="submit"
+            py-click="convert()"
+          >
+            Convert
+          </button>
+        </div>
+      </div>
+
+      <section class="pt-4">
+        <h3>About this tool</h3>
+        <p>
+          Created by <a href="https://github.com/falkben/">Ben Falk</a> using
+          <a href="https://pyscript.net/">pyscript</a> and the Python library
+          <a href="https://github.com/koxudaxi/datamodel-code-generator"
+            >datamodel-code-generator</a
+          >, JSON is converted locally and never leaves your browser. Open
+          source at
+          <a href="https://github.com/falkben/json-to-pydantic/"
+            >github.com/falkben/json-to-pydantic/</a
+          >
+        </p>
+      </section>
     </main>
 
     <script>

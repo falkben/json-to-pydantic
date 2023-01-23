@@ -20,7 +20,7 @@ dependencies = [
   "datamodel-code-generator",
   "pyodide-build",
   "micropip",
-  "pyscript"
+  "build",
 ]
 
 [project.optional-dependencies]

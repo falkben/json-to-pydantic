@@ -1,28 +1,40 @@
-from pathlib import Path
-from tempfile import TemporaryDirectory
+import json
 
-from pyscript import Element
+
+def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: bool):
+    from datamodel_code_generator.parser.jsonschema import JsonSchemaParser
+    from genson import SchemaBuilder
+
+    builder = SchemaBuilder()
+    input = json.loads(input_text)
+    builder.add_object(input)
+    schema = builder.to_schema()
+    if all_optional:
+        schema["required"] = []
+
+    parser = JsonSchemaParser(
+        source=json.dumps(schema),
+        base_class="pydantic.BaseModel",
+        snake_case_field=snake_case_field,
+    )
+
+    return parser.parse()
 
 
 async def convert():
 
-    from datamodel_code_generator import InputFileType, generate
+    from js import document
 
-    input = Element("json-ta").value
+    # todo: set button to disabled and show loading spinner
 
-    with TemporaryDirectory() as temporary_directory_name:
-        temporary_directory = Path(temporary_directory_name)
-        output = Path(temporary_directory / "model.py")
-        generate(
-            input,
-            input_file_type=InputFileType.JsonSchema,
-            input_filename="example.json",
-            output=output,
-            disable_timestamp=True,
-        )
-        model = output.read_text()
+    input_text = document.querySelector("#json-ta").value
 
-    model = "\n".join(model.splitlines()[3:])
+    all_optional = document.querySelector("#all_optional_checkbox").checked
 
-    Element("pydantic-ta").write(model)
+    snake_case_field = document.querySelector("#snake_case_field_checkbox").checked
+
+    model = convert_to_schema(input_text, all_optional, snake_case_field)
+
+    document.querySelector("#pydantic-ta").value = model
+
     return model
