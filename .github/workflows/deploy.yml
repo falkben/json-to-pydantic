@@ -2,7 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -11,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Push to gh-pages
-        run: |
-          git subtree push --prefix json_to_pydantic/static origin gh-pages
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: json_to_pydantic/static
