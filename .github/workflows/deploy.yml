@@ -11,8 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Push to gh-pages
-        run: |
-          git subtree push --prefix json_to_pydantic/static origin gh-pages
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          folder: json_to_pydantic/static
