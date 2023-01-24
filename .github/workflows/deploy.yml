@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: main
+    branches:
 
 jobs:
   deploy:
@@ -14,3 +14,5 @@ jobs:
       - name: Push to gh-pages
         run: |
           git subtree push --prefix json_to_pydantic/static origin gh-pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
