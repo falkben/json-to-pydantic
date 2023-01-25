@@ -45,27 +45,14 @@
         "https://files.pythonhosted.org/packages/35/f0/f3f36d0a87d4f2e3ceb9ba273cac9ad6fb0924f078e51c94803f10b55dbf/PySnooper-1.1.1-py2.py3-none-any.whl",
         "https://files.pythonhosted.org/packages/91/3b/a63bafb8141b67c397841b36ad46e7469716af2b2d00cb0be2dfb9667130/isort-5.11.4-py3-none-any.whl",
         "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl",
-        "https://files.pythonhosted.org/packages/67/e2/bcd7099b31d6a1f7be358f7ef7cf6fc97cc5a66353784fdfa4867e4243fb/inflect-6.0.2-py3-none-any.whl",
-        "wheels/genson-1.2.2-py2.py3-none-any.whl"
+        "https://files.pythonhosted.org/packages/df/d8/3e1a32d305215166f5c32652c473aa766bd7809cd10b34c544dbc31facb5/inflect-5.6.2-py3-none-any.whl",
+        "wheels/genson-1.2.2-py2.py3-none-any.whl",
       ]
+
+      terminal=false
     </py-config>
 
-    <!-- prettier-ignore -->
-    <py-script src="./main.py">
-    </py-script>
-
-    <!-- prettier-ignore -->
-    <py-script>
-      import micropip
-
-      async def load_deps():
-          # install without deps using micropip to avoid bloat
-          await micropip.install(
-              "https://files.pythonhosted.org/packages/af/e9/10c8eb73138bcb6b124e2fc2df7ec8b163f8710d947d9e685b22db215010/datamodel_code_generator-0.16.1-py3-none-any.whl",
-              deps=False,
-          )
-      load_deps()
-    </py-script>
+    <py-script src="main.py"></py-script>
 
     <main class="container">
       <h1 class="text-center">JSON to Pydantic</h1>
@@ -83,8 +70,9 @@
           <code-input
             id="json-ta"
             lang="JSON"
-            style="overflow: hidden"
+            style="height: 500px; resize: both; overflow: hidden"
             placeholder="Enter JSON"
+            py-input="convert()"
             value='{
   "a": "b",
   "c": 123
@@ -99,7 +87,7 @@
           <code-input
             id="pydantic-ta"
             lang="Python"
-            style="overflow: hidden"
+            style="height: 500px; resize: both; overflow: hidden"
             placeholder="Model output"
             value=""
           ></code-input>
@@ -114,6 +102,7 @@
               type="checkbox"
               value=""
               id="all_optional_checkbox"
+              py-change="convert()"
             />
             <label class="form-check-label" for="all_optional_checkbox">
               Specify every field as Optional
@@ -126,24 +115,12 @@
               type="checkbox"
               value=""
               id="snake_case_field_checkbox"
+              py-change="convert()"
             />
             <label class="form-check-label" for="snake_case_field_checkbox">
               Alias camelCase fields as snake_case
             </label>
           </div>
-        </div>
-      </div>
-
-      <div class="row pt-2 align-middle text-center">
-        <div>
-          <button
-            id="convert_button"
-            class="py-button"
-            type="submit"
-            py-click="convert()"
-          >
-            Convert
-          </button>
         </div>
       </div>
 
