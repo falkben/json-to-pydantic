@@ -60,4 +60,5 @@ async def setup():
     await convert()
 
 
-asyncio.create_task(setup())
+if __name__ == "__main__":
+    asyncio.create_task(setup())
