@@ -21,6 +21,7 @@ dependencies = [
   "pyodide-build",
   "micropip",
   "build",
+  "genson",
 ]
 
 [project.optional-dependencies]

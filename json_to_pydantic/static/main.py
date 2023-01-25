@@ -1,4 +1,7 @@
+import asyncio
 import json
+
+import micropip
 
 
 def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: bool):
@@ -33,8 +36,29 @@ async def convert():
 
     snake_case_field = document.querySelector("#snake_case_field_checkbox").checked
 
-    model = convert_to_schema(input_text, all_optional, snake_case_field)
+    try:
+        model = convert_to_schema(input_text, all_optional, snake_case_field)
+    except Exception as e:
+        print(e)
+        return None
 
     document.querySelector("#pydantic-ta").value = model
 
     return model
+
+
+async def load_deps():
+    # install without deps using micropip to avoid several deps
+    await micropip.install(
+        "https://files.pythonhosted.org/packages/af/e9/10c8eb73138bcb6b124e2fc2df7ec8b163f8710d947d9e685b22db215010/datamodel_code_generator-0.16.1-py3-none-any.whl",
+        deps=False,
+    )
+
+
+async def setup():
+    await load_deps()
+    await convert()
+
+
+if __name__ == "__main__":
+    asyncio.create_task(setup())
