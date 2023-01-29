@@ -1,4 +1,4 @@
-<html>
+<html data-bs-theme="dark">
   <head>
     <!-- pyscript -->
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
@@ -21,7 +21,7 @@
     <link
       id="import-theme"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
@@ -55,6 +55,17 @@
     <py-script src="main.py"></py-script>
 
     <main class="container">
+      <div class="position-relative">
+        <div class="position-absolute top-0 end-0">
+          <div class="form-check form-switch">
+            <label class="form-check-label" for="lightSwitch">
+              Light / Dark
+            </label>
+            <input class="form-check-input" type="checkbox" id="lightSwitch" />
+          </div>
+        </div>
+      </div>
+
       <h1 class="text-center">JSON to Pydantic</h1>
 
       <p class="text-center">
@@ -149,5 +160,6 @@
         codeInput.templates.prism(Prism, [new codeInput.plugins.Indent()])
       );
     </script>
+    <script src="js/color_modes.js"></script>
   </body>
 </html>
