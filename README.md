@@ -2,7 +2,7 @@
 
 JSON to [pydantic](https://docs.pydantic.dev/) generator
 
-[![Screenshot](https://user-images.githubusercontent.com/653031/215356255-21155438-a910-4cd7-8eb1-106384dd2c77.png)](https://falkben.github.io/json-to-pydantic/)
+[![Screenshot](https://user-images.githubusercontent.com/653031/215360300-c3674889-bb8c-40e7-adfb-9e384fb61a7f.png)](https://falkben.github.io/json-to-pydantic/)
 
 Page at [falkben.github.io/json-to-pydantic/](https://falkben.github.io/json-to-pydantic/)
 
