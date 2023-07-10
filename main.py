@@ -24,8 +24,7 @@ def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: boo
     return parser.parse()
 
 
-async def convert():
-
+def convert():
     from js import document
 
     # todo: set button to disabled and show loading spinner
@@ -50,14 +49,14 @@ async def convert():
 async def load_deps():
     # install without deps using micropip to avoid several deps
     await micropip.install(
-        "https://files.pythonhosted.org/packages/af/e9/10c8eb73138bcb6b124e2fc2df7ec8b163f8710d947d9e685b22db215010/datamodel_code_generator-0.16.1-py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/a3/44/bd5baa652b4d57853fc71c45bc0d25e1e28c92c54fcc6da07510fdd31ed7/datamodel_code_generator-0.21.1-py3-none-any.whl",
         deps=False,
     )
 
 
 async def setup():
     await load_deps()
-    await convert()
+    convert()
 
 
 if __name__ == "__main__":
