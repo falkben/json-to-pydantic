@@ -5,16 +5,14 @@ build-backend = "hatchling.build"
 [project]
 name = "json_to_pydantic"
 version = "0.0.1"
-authors = [
-  { name="Benjamin Falk", email="falk.ben@gmail.com" },
-]
+authors = [{ name = "Benjamin Falk", email = "falk.ben@gmail.com" }]
 description = "JSON to pydantic generator"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
 dependencies = [
   "datamodel-code-generator",
@@ -25,6 +23,4 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest",
-]
+dev = ["pytest"]
