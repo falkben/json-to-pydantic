@@ -1,6 +1,8 @@
 import asyncio
 import json
 
+import micropip
+
 
 def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: bool):
     from datamodel_code_generator.parser.jsonschema import JsonSchemaParser
@@ -45,13 +47,8 @@ def convert():
 
 
 async def load_deps():
-    # install without deps using micropip to avoid several deps
-    await micropip.install("micropip")  # noqa: F821
-
-    import micropip
-
     await micropip.install(
-        "https://files.pythonhosted.org/packages/a3/44/bd5baa652b4d57853fc71c45bc0d25e1e28c92c54fcc6da07510fdd31ed7/datamodel_code_generator-0.21.1-py3-none-any.whl",
+        "https://files.pythonhosted.org/packages/95/ef/0ed17459fe6076219fcd45f69a0bb4bd1cb041b39095ca2946808a9b5f04/datamodel_code_generator-0.35.0-py3-none-any.whl",
         deps=False,
     )
 
