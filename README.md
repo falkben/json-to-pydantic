@@ -35,8 +35,8 @@ Dependencies are specified in `pyproject.toml` and managed with [pip-tools](http
 2. Generate lock files:
 
     ```sh
-    pip-compile pyproject.toml --quiet && \
-    pip-compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --quiet
+    uv pip compile pyproject.toml --quiet --output-file=requirements.txt && \
+    uv pip compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --quiet
     ```
 
 To upgrade a dependency, pass the `--upgrade-package` flag along with the name of the package, or to upgrade all packages, pass the `--upgrade` flag to the command.
