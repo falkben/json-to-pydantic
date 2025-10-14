@@ -16,29 +16,23 @@ Inspired by [@brokenloop's](https://github.com/brokenloop) [`jsontopydantic`](ht
 
 1. Create virtual environment and activate:
 
-    `python -m venv .venv && source .venv/bin/activate`
+    `uv venv -p 3.13 && source .venv/bin/activate`
 
 2. Install package
 
-    `pip install -e . -r requirements.txt`
+    `uv pip install -e . -r requirements.txt`
 
     Or with optional dev dependencies:
 
-    `pip install -e ".[dev]" -r requirements.txt -r requirements_dev.txt`
+    `uv pip install -e ".[dev]" -r requirements.txt -r requirements_dev.txt`
 
 ### Dependencies
 
 Dependencies are specified in `pyproject.toml` and managed with [pip-tools](https://github.com/jazzband/pip-tools/).
 
-1. Install `pip-tools` (globally with [pipx](https://github.com/pypa/pipx) or in local virtual environment with pip)
+Generate lock files:
 
-2. Generate lock files:
-
-    ```sh
-    uv pip compile pyproject.toml --quiet --output-file=requirements.txt && \
-    uv pip compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --quiet
-    ```
-
-To upgrade a dependency, pass the `--upgrade-package` flag along with the name of the package, or to upgrade all packages, pass the `--upgrade` flag to the command.
-
-More information at: <https://github.com/jazzband/pip-tools/>
+```sh
+uv pip compile pyproject.toml --quiet --output-file=requirements.txt && \
+uv pip compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --constraint requirements.txt --quiet
+```

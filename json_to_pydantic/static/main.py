@@ -1,13 +1,10 @@
-import asyncio
 import json
 
-import micropip
+from datamodel_code_generator.parser.jsonschema import JsonSchemaParser
+from genson import SchemaBuilder
 
 
 def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: bool):
-    from datamodel_code_generator.parser.jsonschema import JsonSchemaParser
-    from genson import SchemaBuilder
-
     builder = SchemaBuilder()
     input = json.loads(input_text)
     builder.add_object(input)
@@ -24,8 +21,8 @@ def convert_to_schema(input_text: str, all_optional: bool, snake_case_field: boo
     return parser.parse()
 
 
-def convert():
-    from js import document
+def convert(_event):
+    from pyscript import document
 
     # todo: set button to disabled and show loading spinner
 
@@ -46,17 +43,5 @@ def convert():
     return model
 
 
-async def load_deps():
-    await micropip.install(
-        "https://files.pythonhosted.org/packages/95/ef/0ed17459fe6076219fcd45f69a0bb4bd1cb041b39095ca2946808a9b5f04/datamodel_code_generator-0.35.0-py3-none-any.whl",
-        deps=False,
-    )
-
-
-async def setup():
-    await load_deps()
-    convert()
-
-
 if __name__ == "__main__":
-    asyncio.create_task(setup())
+    convert(None)

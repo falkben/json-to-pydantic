@@ -14,13 +14,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
-dependencies = [
-  "datamodel-code-generator",
-  "pyodide-build",
-  "micropip",
-  "build",
-  "genson",
-]
+dependencies = ["datamodel-code-generator", "genson"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
