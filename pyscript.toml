@@ -1,0 +1,3 @@
+name = "json-to-pydantic"
+description = " Enter JSON to convert to a pydantic model!"
+packages = ["datamodel-code-generator", "genson"]

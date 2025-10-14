@@ -41,25 +41,7 @@
     <script src="https://cdn.jsdelivr.net/gh/WebCoder49/code-input@1.1/plugins/indent.js"></script>
   </head>
   <body>
-    <!-- prettier-ignore -->
-    <py-config>
-      packages = [
-        "pyyaml==6.0.2",
-        "Jinja2==3.1.6",
-        "pydantic==2.10.6",
-        "black==25.9.0",
-        "PySnooper",
-        "isort==6.1.0",
-        "toml",
-        "inflect",
-        "genson==1.3.0",
-        "micropip",
-      ]
-
-      terminal=false
-    </py-config>
-
-    <script type="py" src="./main.py"></script>
+    <script type="py" src="./main.py" config="./pyscript.toml"></script>
 
     <main class="container">
       <div class="position-relative">
@@ -114,7 +96,7 @@
             lang="JSON"
             style="height: 500px; resize: both; overflow: hidden"
             placeholder="Enter JSON"
-            py-input="convert()"
+            py-input="convert"
             value='{
   "a": "b",
   "c": 123
@@ -144,7 +126,7 @@
               type="checkbox"
               value=""
               id="all_optional_checkbox"
-              py-change="convert()"
+              py-change="convert"
             />
             <label class="form-check-label" for="all_optional_checkbox">
               Specify every field as Optional
@@ -157,7 +139,7 @@
               type="checkbox"
               value=""
               id="snake_case_field_checkbox"
-              py-change="convert()"
+              py-change="convert"
             />
             <label class="form-check-label" for="snake_case_field_checkbox">
               Alias camelCase fields as snake_case
