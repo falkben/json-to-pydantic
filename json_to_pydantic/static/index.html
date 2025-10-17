@@ -108,13 +108,27 @@
           <h2 class="text-center">
             <label for="pydantic-ta">Pydantic</label>
           </h2>
-          <code-input
-            id="pydantic-ta"
-            lang="Python"
-            style="height: 500px; resize: both; overflow: hidden"
-            placeholder="Model output"
-            value=""
-          ></code-input>
+          <div class="position-relative">
+            <button
+              id="copy-button"
+              class="btn btn-outline-secondary btn-sm copy-btn position-absolute"
+              type="button"
+              title="Copy to clipboard"
+                style="opacity: 0.7; transition: opacity 0.2s; top: 8px; right: 12px; z-index: 10; display: none;"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+              </svg>
+            </button>
+            <code-input
+              id="pydantic-ta"
+              lang="Python"
+              style="height: 500px; resize: both; overflow: hidden"
+              placeholder="Model output"
+              value=""
+            ></code-input>
+          </div>
         </div>
       </div>
 
@@ -174,5 +188,113 @@
       );
     </script>
     <script src="js/color_modes.js"></script>
+
+    <script>
+      // Copy button functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const copyButton = document.getElementById('copy-button');
+        const pydanticTextarea = document.getElementById('pydantic-ta');
+
+        // Show/hide copy button based on content
+        function updateCopyButtonVisibility() {
+          const hasContent = pydanticTextarea.value.trim().length > 0;
+          copyButton.style.display = hasContent ? 'block' : 'none';
+        }
+
+        // Initial check
+        updateCopyButtonVisibility();
+
+        // Listen for changes in the pydantic textarea
+        pydanticTextarea.addEventListener('input', updateCopyButtonVisibility);
+
+        // Also check periodically for changes made by PyScript
+        let lastValue = pydanticTextarea.value;
+        setInterval(() => {
+          if (pydanticTextarea.value !== lastValue) {
+            lastValue = pydanticTextarea.value;
+            updateCopyButtonVisibility();
+          }
+        }, 100);
+
+        // Copy functionality
+        copyButton.addEventListener('click', async function() {
+          try {
+            const textToCopy = pydanticTextarea.value;
+
+            if (!textToCopy.trim()) {
+              return;
+            }
+
+            // Use the modern Clipboard API
+            await navigator.clipboard.writeText(textToCopy);
+
+            // Visual feedback
+            const originalIcon = copyButton.innerHTML;
+            copyButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+              </svg>
+            `;
+            copyButton.style.opacity = '1';
+            copyButton.classList.remove('btn-outline-secondary');
+            copyButton.classList.add('btn-success');
+
+            // Reset after 2 seconds
+            setTimeout(() => {
+              copyButton.innerHTML = originalIcon;
+              copyButton.style.opacity = '0.7';
+              copyButton.classList.remove('btn-success');
+              copyButton.classList.add('btn-outline-secondary');
+            }, 2000);
+
+          } catch (err) {
+            console.error('Failed to copy text: ', err);
+
+            // Fallback for older browsers
+            try {
+              pydanticTextarea.select();
+              pydanticTextarea.setSelectionRange(0, 99999); // For mobile devices
+              document.execCommand('copy');
+
+              // Visual feedback for fallback
+              const originalIcon = copyButton.innerHTML;
+              copyButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+              `;
+              copyButton.style.opacity = '1';
+              copyButton.classList.remove('btn-outline-secondary');
+              copyButton.classList.add('btn-success');
+
+              setTimeout(() => {
+                copyButton.innerHTML = originalIcon;
+                copyButton.style.opacity = '0.7';
+                copyButton.classList.remove('btn-success');
+                copyButton.classList.add('btn-outline-secondary');
+              }, 2000);
+
+            } catch (fallbackErr) {
+              console.error('Fallback copy also failed: ', fallbackErr);
+              alert('Failed to copy to clipboard');
+            }
+          }
+        });
+
+        // Show copy button on hover over the pydantic section
+        const pydanticSection = document.querySelector('.col:last-child');
+        pydanticSection.addEventListener('mouseenter', function() {
+          if (pydanticTextarea.value.trim().length > 0) {
+            copyButton.style.opacity = '1';
+          }
+        });
+
+        pydanticSection.addEventListener('mouseleave', function() {
+          if (!copyButton.classList.contains('btn-success')) {
+            copyButton.style.opacity = '0.7';
+          }
+        });
+      });
+    </script>
   </body>
 </html>
