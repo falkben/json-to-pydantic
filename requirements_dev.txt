@@ -39,7 +39,7 @@ jinja2==3.1.6
     # via
     #   -c requirements.txt
     #   datamodel-code-generator
-markupsafe==3.0.3
+markupsafe==3.0.2
     # via
     #   -c requirements.txt
     #   jinja2
@@ -87,6 +87,8 @@ pyyaml==6.0.2
     # via
     #   -c requirements.txt
     #   datamodel-code-generator
+toml==0.10.2
+    # via json-to-pydantic (pyproject.toml)
 typeguard==4.4.4
     # via
     #   -c requirements.txt

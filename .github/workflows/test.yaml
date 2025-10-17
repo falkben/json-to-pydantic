@@ -28,5 +28,8 @@ jobs:
         run: |
           uv pip install -r requirements.txt -r requirements_dev.txt -e .
 
+      - name: Check PyScript synchronization
+        run: bash check_pyscript_sync.sh
+
       - name: pytest
-        run: uv run pytest
+        run: pytest
