@@ -45,5 +45,5 @@ The CI pipeline includes a check to ensure that `pyscript.toml` stays synchroniz
 You can manually check synchronization status with:
 
 ```sh
-python check_pyscript_sync.sh
+bash check_pyscript_sync.sh
 ```
