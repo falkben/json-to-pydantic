@@ -30,9 +30,20 @@ Inspired by [@brokenloop's](https://github.com/brokenloop) [`jsontopydantic`](ht
 
 Dependencies are specified in `pyproject.toml` and managed with [pip-tools](https://github.com/jazzband/pip-tools/).
 
-Generate lock files:
+Generate lock files and sync pyscript dependencies:
 
 ```sh
 uv pip compile pyproject.toml --quiet --output-file=requirements.txt && \
-uv pip compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --constraint requirements.txt --quiet
+uv pip compile --extra=dev --output-file=requirements_dev.txt pyproject.toml --constraint requirements.txt --quiet && \
+python sync_pyscript_requirements.py
+```
+
+### CI Checks
+
+The CI pipeline includes a check to ensure that `pyscript.toml` stays synchronized with `requirements.txt`. If you update dependencies, make sure to run the sync command above. The CI will fail if the PyScript configuration is out of sync.
+
+You can manually check synchronization status with:
+
+```sh
+python check_pyscript_sync.sh
 ```

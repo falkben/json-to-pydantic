@@ -17,4 +17,4 @@ classifiers = [
 dependencies = ["datamodel-code-generator", "genson"]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "toml"]
